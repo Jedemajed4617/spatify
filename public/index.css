@@ -1,0 +1,332 @@
+/* Logo color: #25d865 */
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+li a {
+    list-style: none;
+    text-decoration: none;
+    color: inherit;
+}
+
+body {
+    position: relative;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+.header {
+    width: 100%;
+    height: 9rem;
+    display: flex;
+    background-color: black;
+}
+
+.header__container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    padding: 1rem;
+    align-items: center;
+}
+
+.header__imgcontainer {
+    width: 6rem;
+    height: auto;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+}
+
+.header__imgLinkC{
+    width: 100%;
+    height: 100%;
+}
+
+.header__img {
+    width: 6rem;
+    height: auto;
+}
+
+.header__searchbarform {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.header__searchbar {
+    flex: 1;
+    padding: 10px;
+    font-size: 1.7rem;
+    border: none;
+    width: 80%;
+    background: #242424;
+    outline: none;
+    color: white;
+    border-radius: 2rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.header__searchsubmit {
+    flex: 0 0 10%;
+    padding: 1rem;
+    background: #242424;
+    color: white;
+    font-size: 1.7rem;
+    border: none;
+    cursor: pointer;
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+}
+
+.header__searchsubmit:hover {
+    background-color: #1DB954;
+}
+
+@media screen and (max-width: 500px) {
+    .header__imgcontainer {
+        min-width: 4rem;
+        height: auto;
+        margin-right: 1rem;
+    }
+
+    .header__imgSubText {
+        display: none;
+    }
+
+    .header__searchbar {
+        flex: 1;
+        padding: 10px;
+        font-size: 17px;
+        border: none;
+        width: 80%;
+    }
+}
+
+/* Library */
+.library {
+    width: 100%;
+    height: auto;
+    min-height: 80vh;
+    background-color: #242424;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+}
+
+.music-card {
+    background-color: #1E1E1E;
+    border-radius: 10px;
+    width: 300px;
+    padding: 20px;
+    color: #FFFFFF;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Nunito', sans-serif;
+}
+
+.music-card-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.music-card-artist {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.music-card-song {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.music-card-duration {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.music-card-genre {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.music--cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* Filter Container Styles */
+.filters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    padding-top: 4rem;
+    flex-wrap: wrap;
+    background-color: #242424;
+}
+
+.filters label {
+    color: #1DB954;
+    font-weight: bold;
+    margin-right: 10px;
+    font-size: 1.7rem;
+    font-family: 'Nunito', sans-serif;
+}
+
+.filters select {
+    padding: 5px 10px;
+    border: 1px solid #1DB954;
+    border-radius: 5px;
+    background-color: #121212;
+    color: #FFFFFF;
+    font-size: 14px;
+    outline: none;
+    appearance: none;
+    position: relative;
+}
+
+.filters select::after {
+    content: "▼";
+    color: white;
+    pointer-events: none;
+}
+
+.filters select:hover {
+    background-color: #121212;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.filters select:hover::after {
+    color: #FFFFFF;
+    background-color: #1DB954;
+    cursor: pointer;
+}
+
+
+.filter--container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 900px) {
+    .filters {
+        justify-content: flex-start;
+    }  
+}
+
+/* CMS */
+
+.music {
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    background-color: #242424;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container {
+    background-color: #1db954;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Nunito', sans-serif;
+    width: auto;
+}
+
+.createmusic {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.createmusic h2 {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    color: white;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.musicinput {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+}
+
+.buttonmusic {
+    background-color: #1db954;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.buttonmusic:hover {
+    background-color: #1ed760;
+}
+
+@media (max-width: 767px) {
+    .music {
+        min-height: 90vh;
+        padding: 2rem;
+    }
+
+    .form-container {
+        width: 90%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
+
+/* FOOTER */
+
+.footer {
+    width: 100%;
+    height: 5rem;
+    background-color: black;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+}
+
+.footer__copyright {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.6rem;
+}

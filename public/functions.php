@@ -1,6 +1,6 @@
 <?php
 
-include('var_dump.php');
+include('../src/var_dump.php');
 
 function imageNameGen() {
     $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';

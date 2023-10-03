@@ -193,12 +193,14 @@ html {
 .filters select {
     padding: 5px 10px;
     border: 1px solid #1DB954;
+    border-right: none;
     border-radius: 5px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
     background-color: #121212;
     color: #FFFFFF;
     font-size: 14px;
     outline: none;
-    appearance: none;
     position: relative;
 }
 
@@ -227,6 +229,26 @@ html {
     flex-wrap: wrap;
 }
 
+.button__apply{
+    background-color: #121212;
+    border-right: 1px solid #1DB954;
+    border-top: 1px solid #1DB954;
+    border-bottom: 1px solid #1DB954;
+    border-left: none;
+    color: white;
+    padding: 0.6rem;
+    border-radius: 0.5rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    outline: none;
+    font-size: 1.4rem;
+}
+
+.button__apply:hover{
+    cursor: pointer;
+    background-color: #1DB954;
+}
+
 @media screen and (max-width: 900px) {
     .filters {
         justify-content: flex-start;
@@ -243,6 +265,7 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .form-container {
@@ -297,6 +320,42 @@ label {
 
 .buttonmusic:hover {
     background-color: #1ed760;
+}
+
+/* Style for the outer container */
+.activeMusic {
+    width: 100%;
+    min-height: 10vh;
+    background-color: #242424; /* Spotify's green color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Nunito', sans-serif;
+    padding: 1rem;
+    padding-top: 4rem;
+    padding-bottom: 0;
+}
+
+/* Style for the music count container */
+.musicCountContainer {
+    background-color: #1DB954; /* Semi-transparent black background */
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    color: #fff; /* Text color */
+    font-size: 24px;
+    margin-bottom: 20px; /* Add some space between count and music cards */
+}
+
+/* Media query for responsive design (adjust as needed) */
+@media screen and (max-width: 768px) {
+    .activeMusic {
+        padding: 20px; /* Add some spacing to the content for smaller screens */
+    }
+    
+    .musicCountContainer {
+        font-size: 20px; /* Decrease font size for smaller screens */
+    }
 }
 
 @media (max-width: 767px) {

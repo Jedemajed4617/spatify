@@ -1,5 +1,5 @@
 <?php
-include('var_dump.php');
+include('../src/var_dump.php');
 include('functions.php');
 session_start();
 

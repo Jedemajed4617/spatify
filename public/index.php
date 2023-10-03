@@ -33,43 +33,91 @@
 
     <div class="filters">
         <div class="filter--container">
-            <label for="artistFilter">Sort by Artist Name:</label>
-            <select id="artistFilter">
-                <option value="asc">A-Z</option>
-                <option value="desc">Z-A</option>
-            </select>
+            <form method="get" action="index.php">
+                <label for="artistFilter">Sort by Artist Name:</label>
+                <select name="artistFilter" id="artistFilter">
+                    <option value="asc">A-Z</option>
+                    <option value="desc">Z-A</option>
+                </select>
+                <button class="button__apply" type="submit">Apply</button>
+            </form>
         </div>
         <div class="filter--container">
-            <label for="genreFilter">Filter by Genre:</label>
-            <select id="genreFilter">
-                <option value="">All Genres</option>
-                <option value="Pop">Pop</option>
-                <option value="Rock">Rock</option>
-                <option value="Hip Hop">Hip-Hop</option>
-                <!-- Add more genre options here -->
-            </select>
+            <form method="get" action="index.php">
+                <label for="genreFilter">Filter by Genre:</label>
+                <select name="genreFilter" id="genreFilter">
+                    <option value="">All Genres</option>
+                    <option value="Pop">Pop</option>
+                    <option value="Rock">Rock</option>
+                    <option value="Hip-Hop">Hip-Hop</option>
+                    <option value="K-Pop">K-Pop</option>
+                    <option value="R&B">R&B</option>
+                    <option value="Jazz">Jazz</option>
+                    <option value="Nederlandstalig">Nederlandstalig</option>
+                </select>
+                <button class="button__apply" type="submit">Apply</button>
+            </form>
         </div>
         <div class="filter--container">
-            <label for="durationFilter">Filter by Duration:</label>
-            <select id="durationFilter">
-                <option value="">All Durations</option>
-                <option value="short">Short (less than 3 min)</option>
-                <option value="medium">Medium (3-5 min)</option>
-                <option value="long">Long (more than 5 min)</option>
-            </select>
+            <form method="get" action="index.php">
+                <label for="durationFilter">Filter by Duration:</label>
+                <select name="durationFilter" id="durationFilter">
+                    <option value="">All Durations</option>
+                    <option value="short">Short (less than 3 min)</option>
+                    <option value="medium">Medium (3-5 min)</option>
+                    <option value="long">Long (more than 5 min)</option>
+                </select>
+                <button class="button__apply" type="submit">Apply</button>
+            </form>
         </div>
     </div>
 
     <section class="library">
         <div class="music--cardContainer">
             <?php
-            include('var_dump.php');
+            require_once('../src/var_dump.php');
+
+            // Initialize filter variables
+            $artistFilter = isset($_GET['artistFilter']) ? $_GET['artistFilter'] : '';
+            $genreFilter = isset($_GET['genreFilter']) ? $_GET['genreFilter'] : '';
+            $durationFilter = isset($_GET['durationFilter']) ? $_GET['durationFilter'] : '';
+
+            // Check for connection errors
+            if ($mysqli->connect_error) {
+                die("Connection failed: " . $mysqli->connect_error);
+            }
+
+            // Create the base SQL query
+            $sql = "SELECT * FROM music WHERE 1";
+
+            // Add filters to the SQL query as needed
+            if (!empty($artistFilter)) {
+                if ($artistFilter === 'asc') {
+                    $sql .= " ORDER BY artist ASC";
+                } elseif ($artistFilter === 'desc') {
+                    $sql .= " ORDER BY artist DESC";
+                }
+            }
+
+            if (!empty($genreFilter)) {
+                // Use prepared statement to bind parameters
+                $sql .= " AND genre = ?";
+            }
+
+            // Create a prepared statement
+            $stmt = $mysqli->prepare($sql);
+
+            if (!empty($genreFilter)) {
+                // Bind the parameter to the prepared statement
+                $stmt->bind_param("s", $genreFilter);
+            }
+
+            // Execute the prepared statement
+            $stmt->execute();
 
             // Fetch music data from the database
-            $sql = "SELECT * FROM music";
-            $result = $mysqli->query($sql);
+            $result = $stmt->get_result();
 
-            // Loop through the database results and create music cards
             while ($row = $result->fetch_assoc()) {
                 echo '<div class="music-card">';
                 echo '<div class="music-card-image">';
@@ -85,9 +133,11 @@
                 echo '</div>';
             }
 
-            // Close the database connection
+            // Close the database connection and statement
+            $stmt->close();
             $mysqli->close();
             ?>
+        </div>
     </section>
 
     <footer class="footer">

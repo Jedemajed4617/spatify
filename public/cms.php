@@ -32,6 +32,11 @@
     </header>
 
     <section class="music">
+        <section class="activeMusic">
+            <div class="musicCountContainer">
+                <?php include('count_music.php'); ?>
+            </div>
+        </section>
         <div class="form-container">
             <form class="createmusic" action="createsong.php" method="POST" enctype="multipart/form-data">
                 <h2>Add a New Song</h2>

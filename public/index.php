@@ -23,7 +23,7 @@
                 <h1 class="header__imgSubText">Spatify</h1>
             </div>
             <div class="header__searchcontainer">
-                <form class="header__searchbarform" action="action_page.php">
+                <form class="header__searchbarform" action="#" method="GET">
                     <button class="header__searchsubmit" type="submit"><i class="fa fa-search"></i></button>
                     <input class="header__searchbar" type="text" placeholder="Search.." name="search">
                 </form>
@@ -35,7 +35,7 @@
         <div class="filter--container">
             <form method="get" action="index.php">
                 <label for="artistFilter">Sort by Artist Name:</label>
-                <select name="artistFilter" id="artistFilter">
+                <select onchange="artistfilter()" name="artistFilter" id="artistFilter">
                     <option value="asc">A-Z</option>
                     <option value="desc">Z-A</option>
                 </select>
@@ -81,6 +81,7 @@
             $artistFilter = isset($_GET['artistFilter']) ? $_GET['artistFilter'] : '';
             $genreFilter = isset($_GET['genreFilter']) ? $_GET['genreFilter'] : '';
             $durationFilter = isset($_GET['durationFilter']) ? $_GET['durationFilter'] : '';
+            $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
 
             // Check for connection errors
             if ($mysqli->connect_error) {
@@ -104,31 +105,53 @@
                 $sql .= " AND genre = ?";
             }
 
+            if (!empty($durationFilter)) {
+                // Create a placeholder for the duration filter
+                $sql .= " AND duration = ?";
+            }
+
             // Create a prepared statement
             $stmt = $mysqli->prepare($sql);
 
+            // Bind parameters for the genre and duration filters
             if (!empty($genreFilter)) {
-                // Bind the parameter to the prepared statement
                 $stmt->bind_param("s", $genreFilter);
+            }
+
+            if (!empty($durationFilter)) {
+                $stmt->bind_param("s", $durationFilter);
             }
 
             // Execute the prepared statement
             $stmt->execute();
 
-            // Fetch music data from the database
+            // Fetch all matching music data
+            $matchingMusic = [];
             $result = $stmt->get_result();
-
             while ($row = $result->fetch_assoc()) {
+                $artistName = strtolower($row['artist']);
+                $songName = strtolower($row['song']);
+                $searchTerm = strtolower($searchQuery);
+
+                if (empty($searchQuery) || strpos($artistName, $searchTerm) !== false || strpos($songName, $searchTerm) !== false) {
+                    $matchingMusic[] = $row;
+                }
+            }
+
+            // Shuffle the matching music randomly
+            shuffle($matchingMusic);
+
+            foreach ($matchingMusic as $row) {
                 echo '<div class="music-card">';
                 echo '<div class="music-card-image">';
                 echo '<img src="./productimg/' . $row['image'] . '" alt="Song Cover">';
                 echo '</div>';
                 echo '<div class="music-card-info">';
-                echo '<h2 class="music-card-artist">Artist Name: <small>' . $row['artist'] . '</small></h2>';
-                echo '<h3 class="music-card-song">Song Name: <small>' . $row['song'] . '</small></h3>';
-                echo '<h4 class="music-card-song">Album: <small>' . $row['album'] . '</small></h4>';
-                echo '<p class="music-card-duration">Duration: <small>' . $row['duration'] . '</small></p>';
-                echo '<p class="music-card-genre">Genre: <small>' . $row['genre'] . '</small></p>';
+                echo '<p class="music-card-artist">Artist Name: <small>' . $row['artist'] . '</small></p>';
+                echo '<p class="music-card-artist">Song Name: <small>' . $row['song'] . '</small></p>';
+                echo '<p class="music-card-artist">Album: <small>' . $row['album'] . '</small></p>';
+                echo '<p class="music-card-artist">Duration: <small>' . $row['duration'] . '</small></p>';
+                echo '<p class="music-card-artist">Genre: <small>' . $row['genre'] . '</small></p>';
                 echo '</div>';
                 echo '</div>';
             }

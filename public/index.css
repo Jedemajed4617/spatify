@@ -133,32 +133,54 @@ html {
     color: #FFFFFF;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     font-family: 'Nunito', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 45rem;
+}
+
+.music-card-image {
+    max-width: 100%;
+    height: auto;
+    position: relative;
+}
+
+.music-card-image::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.25); /* Adjust the opacity (last value) to control the darkness */
+    pointer-events: none; /* Allows clicks to pass through the overlay to the image */
+    border-radius: 2rem;
 }
 
 .music-card-image img {
     max-width: 100%;
     height: auto;
-    border-radius: 5px;
+    border-radius: 2rem;
+}
+
+.music-card-info{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.5rem;
 }
 
 .music-card-artist {
     font-size: 18px;
-    margin: 10px 0;
+    font-weight: bold;
 }
 
-.music-card-song {
-    font-size: 16px;
-    margin: 5px 0;
-}
-
-.music-card-duration {
-    font-size: 14px;
-    margin: 5px 0;
-}
-
-.music-card-genre {
-    font-size: 14px;
-    margin: 5px 0;
+.music-card-artist small{
+    font-weight: normal;
+    font-size: 1.4rem;
 }
 
 .music--cardContainer {
